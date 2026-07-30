@@ -51,11 +51,11 @@ body {
 }
 
 .pin-card input {
-    width: 140px;
+    width: 190px;
     padding: 12px;
     text-align: center;
     font-size: 1.5rem;
-    letter-spacing: 10px;
+    letter-spacing: 6px;
     border-radius: 10px;
     border: 2px solid #ffb7c5;
     background: rgba(0, 0, 0, 0.3);
@@ -123,6 +123,7 @@ body {
 }
 
 .hidden-btn {
+    display: none;
     margin-top: 30px;
     width: 100%;
     padding: 14px;
