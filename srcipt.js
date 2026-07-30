@@ -1,7 +1,7 @@
-// ১. আপনার ৪ ডিজিটের সিক্রেট পিন এখানে সেট করুন:
-const SECRET_PIN = "1234"; 
+// ১. আপনার ৬ ডিজিটের সিক্রেট পিন এখানে বসান:
+const SECRET_PIN = "123456"; 
 
-// ২. পিংক পেপারে লেখার মেসেজটি এখানে লিখুন:
+// ২. পিংক পেপারে যে লেখাটি ভেসে উঠবে:
 const letterMessage = `Hey Beautiful ❤️,
 
 You are the most special person in my life. Every single moment with you feels like a dream.
@@ -25,7 +25,7 @@ function checkPin() {
     }
 }
 
-// Enter Key Press Support for PIN
+// Enter Key Press Support
 document.getElementById('pin-input').addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
         checkPin();
@@ -35,7 +35,7 @@ document.getElementById('pin-input').addEventListener('keypress', function (e) {
 // Typewriter Effect Function
 function startTypewriter() {
     let i = 0;
-    const speed = 40; // টাইপিং স্পিড
+    const speed = 40;
     const target = document.getElementById("typewriter-text");
 
     function type() {
@@ -44,7 +44,6 @@ function startTypewriter() {
             i++;
             setTimeout(type, speed);
         } else {
-            document.getElementById("show-flower-btn").classList.remove("hidden-btn");
             document.getElementById("show-flower-btn").style.display = "block";
         }
     }
