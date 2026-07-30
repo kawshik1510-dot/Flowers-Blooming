@@ -1,10 +1,10 @@
 // ১. আপনার ৬ ডিজিটের সিক্রেট পিন এখানে বসান:
-const SECRET_PIN = "123456"; 
+const SECRET_PIN = "200610"; 
 
 // ২. পিংক পেপারে যে লেখাটি ভেসে উঠবে:
-const letterMessage = `Hey Beautiful ❤️,
+const letterMessage = `Hie my beautiful Beva pakhi ❤️,
 
-You are the most special person in my life. Every single moment with you feels like a dream.
+You are the sweetest person I've ever met. Every single moment with you feels like a dream .
 
 I created this little space just for you to bring a smile to your face today.
 
@@ -21,7 +21,7 @@ function checkPin() {
         document.getElementById('main-content').classList.remove('hidden');
         startTypewriter();
     } else {
-        errorMsg.innerText = "Incorrect PIN! Try again ❤️";
+        errorMsg.innerText = "aww Hocche na? ";
     }
 }
 
