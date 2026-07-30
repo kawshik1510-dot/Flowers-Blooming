@@ -1,58 +1,48 @@
-// ১. আপনার ৬ ডিজিটের পিন (এখানে আপনার পিন দিন, কোনো স্পেস রাখবেন না)
-const SECRET_PIN = "200610"; 
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Surprise 💖</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
-// ২. আপনার চিঠি
-const letterMessage = `Hey Beautiful Beautiful Beva ❤️,
+    <!-- 1. PIN Lock Screen -->
+    <div id="pin-screen" class="screen">
+        <div class="pin-card">
+            <div class="lock-icon">🔒</div>
+            <h2>Enter Secret PIN</h2>
+            <p>Enter the 6-digit code to unlock</p>
+            <input type="password" id="pin-input" maxlength="6" placeholder="••••••" autofocus>
+            <button onclick="checkPin()">Unlock</button>
+            <p id="error-msg" class="error"></p>
+        </div>
+    </div>
 
-You are the most special and the sweetest person I've ever met❤️. Every single moment with you feels like a dream.❤️
+    <!-- 2. Letter & Bouquet Container -->
+    <div id="main-content" class="hidden">
+        
+        <!-- Letter Section -->
+        <section class="letter-section">
+            <div class="paper">
+                <div class="heart-stamp">💖</div>
+                <div id="typewriter-text" class="letter-text"></div>
+                <button id="show-flower-btn" class="hidden-btn" onclick="scrollToBouquet()">
+                    See Your Surprise Flowers 🌸
+                </button>
+            </div>
+        </section>
 
-I created this little space just for you to bring a smile to your face today.
+        <!-- Bouquet Section -->
+        <section id="bouquet-section" class="bouquet-section">
+            <div class="night-sky">
+                <!-- Original Flowers Animation Area -->
+            </div>
+        </section>
 
-Click the button below to see your special flowers... 🌸`;
+    </div>
 
-
-// PIN Check Function (Trim ব্যবহার করা হয়েছে যাতে ভুল করে স্পেস পড়লেও কাজ করে)
-function checkPin() {
-    const inputField = document.getElementById('pin-input');
-    const input = inputField.value.trim();
-    const errorMsg = document.getElementById('error-msg');
-
-    if (input === SECRET_PIN) {
-        document.getElementById('pin-screen').classList.add('hidden');
-        document.getElementById('main-content').classList.remove('hidden');
-        startTypewriter();
-    } else {
-        errorMsg.innerText = "Incorrect PIN! Try again ❤️";
-        inputField.value = ""; // ভুল হলে বক্স খালি হয়ে যাবে
-    }
-}
-
-// Enter Key Support
-document.getElementById('pin-input').addEventListener('keypress', function (e) {
-    if (e.key === 'Enter') {
-        checkPin();
-    }
-});
-
-// Typewriter Effect
-function startTypewriter() {
-    let i = 0;
-    const speed = 40;
-    const target = document.getElementById("typewriter-text");
-
-    function type() {
-        if (i < letterMessage.length) {
-            target.innerHTML += letterMessage.charAt(i);
-            i++;
-            setTimeout(type, speed);
-        } else {
-            document.getElementById("show-flower-btn").style.display = "block";
-        }
-    }
-    type();
-}
-
-// Scroll to Bouquet
-function scrollToBouquet() {
-    document.getElementById('bouquet-section').scrollIntoView({ behavior: 'smooth' });
-}
+    <script src="srcipt.js"></script>
+</body>
+</html>
