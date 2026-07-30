@@ -14,6 +14,8 @@ Click the button below to see your special flowers... 🌸`;
 // PIN Check Function
 function checkPin() {
     const inputField = document.getElementById('pin-input');
+    if (!inputField) return;
+    
     const input = inputField.value.trim();
     const errorMsg = document.getElementById('error-msg');
 
@@ -21,16 +23,23 @@ function checkPin() {
         document.getElementById('pin-screen').classList.add('hidden');
         document.getElementById('main-content').classList.remove('hidden');
         startTypewriter();
+        // Trigger Flower Animation after unlocking
+        onload();
     } else {
-        errorMsg.innerText = "Incorrect PIN! Try again ❤️";
+        if(errorMsg) errorMsg.innerText = "Incorrect PIN! Try again ❤️";
         inputField.value = "";
     }
 }
 
 // Enter Key Support
-document.getElementById('pin-input').addEventListener('keypress', function (e) {
-    if (e.key === 'Enter') {
-        checkPin();
+document.addEventListener('DOMContentLoaded', () => {
+    const pinInput = document.getElementById('pin-input');
+    if(pinInput) {
+        pinInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                checkPin();
+            }
+        });
     }
 });
 
@@ -39,6 +48,7 @@ function startTypewriter() {
     let i = 0;
     const speed = 40;
     const target = document.getElementById("typewriter-text");
+    if(!target) return;
 
     function type() {
         if (i < letterMessage.length) {
@@ -46,7 +56,8 @@ function startTypewriter() {
             i++;
             setTimeout(type, speed);
         } else {
-            document.getElementById("show-flower-btn").style.display = "block";
+            const btn = document.getElementById("show-flower-btn");
+            if(btn) btn.style.display = "block";
         }
     }
     type();
@@ -54,7 +65,19 @@ function startTypewriter() {
 
 // Scroll to Bouquet
 function scrollToBouquet() {
-    document.getElementById('bouquet-section').scrollIntoView({ behavior: 'smooth' });
+    const bouquetSection = document.getElementById('bouquet-section');
+    if(bouquetSection) {
+        bouquetSection.scrollIntoView({ behavior: 'smooth' });
+    }
 }
 
-// --- নিচে আপনার ফুলের আসল অ্যানিমেশনের বাকি কোডগুলো আগের মতোই থাকবে ---
+// ==========================================
+// FLOWER ANIMATION ENGINE (Original Code)
+// ==========================================
+
+const onload = () => {
+  const c = setTimeout(() => {
+    document.body.classList.remove("not-loaded");
+    clearTimeout(c);
+  }, 1000);
+};
