@@ -4,7 +4,201 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A Special Surprise 💖</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0d1b2a;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* PIN Screen */
+        .screen {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #0d1b2a;
+        }
+
+        .pin-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            padding: 40px 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        .lock-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .pin-card h2 {
+            color: #ffb7c5;
+            margin-bottom: 8px;
+        }
+
+        .pin-card p {
+            color: #a0aab2;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .pin-card input {
+            width: 190px;
+            padding: 12px;
+            text-align: center;
+            font-size: 1.5rem;
+            letter-spacing: 6px;
+            border-radius: 10px;
+            border: 2px solid #ffb7c5;
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            outline: none;
+            margin-bottom: 15px;
+        }
+
+        .pin-card button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #ff4d6d;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .pin-card button:hover {
+            background: #ff758f;
+        }
+
+        .error {
+            color: #ff4d4d;
+            font-size: 0.85rem;
+            margin-top: 10px;
+        }
+
+        /* Pink Letter Section */
+        .letter-section {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .paper {
+            background: #ffe5ec;
+            color: #590d22;
+            width: 100%;
+            max-width: 600px;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.3);
+            position: relative;
+            border: 2px solid #ffb7c5;
+        }
+
+        .heart-stamp {
+            font-size: 2rem;
+            text-align: right;
+            margin-bottom: 10px;
+        }
+
+        .letter-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            min-height: 150px;
+            white-space: pre-wrap;
+        }
+
+        .hidden-btn {
+            display: none;
+            margin-top: 30px;
+            width: 100%;
+            padding: 14px;
+            background: #c9184a;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.05rem;
+            font-weight: bold;
+            cursor: pointer;
+            animation: fadeIn 1s ease-in forwards;
+        }
+
+        .hidden-btn:hover {
+            background: #ff4d6d;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Bouquet Section */
+        .bouquet-section {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            background: #0d1b2a;
+        }
+
+        .flower-card {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 183, 197, 0.3);
+            box-shadow: 0 10px 40px rgba(255, 77, 109, 0.2);
+            max-width: 500px;
+            width: 100%;
+            animation: zoomIn 0.8s ease-in-out;
+        }
+
+        .flower-img {
+            width: 100%;
+            max-width: 320px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .flower-card h2 {
+            color: #ffb7c5;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .flower-card p {
+            color: #ffccd5;
+            font-size: 1.1rem;
+        }
+
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
 </head>
 <body>
 
@@ -20,7 +214,7 @@
         </div>
     </div>
 
-    <!-- 2. Letter & Bouquet Container -->
+    <!-- 2. Main Container -->
     <div id="main-content" class="hidden">
         
         <!-- Letter Section -->
@@ -35,7 +229,7 @@
         </section>
 
         <!-- Bouquet Section -->
-        <section id="bouquet-section" class="bouquet-section">
+        <section id="bouquet-section" class="bouquet-section hidden">
             <div class="flower-card">
                 <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp1aWsxcW1yeXBpY3p2bGt2aXlsbm44bThic3BicXdpdWlmdnU5NyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Lq0h93752f6J9tijrh/giphy.gif" alt="Flowers Bouquet" class="flower-img">
                 <h2>Flowers For You! 💐</h2>
@@ -45,6 +239,60 @@
 
     </div>
 
-    <script src="srcipt.js"></script>
+    <script>
+        const SECRET_PIN = "200610";
+
+        const letterMessage = `Hey Beautiful Beva ❤️,
+
+You are the most special and the sweetest person I've ever met❤️. Every single moment with you feels like a dream.❤️
+
+I created this little space just for you to bring a smile to your face today.
+
+Click the button below to see your special flowers... 🌸`;
+
+        function checkPin() {
+            const inputField = document.getElementById('pin-input');
+            const input = inputField ? inputField.value.trim() : '';
+            const errorMsg = document.getElementById('error-msg');
+
+            if (input === SECRET_PIN) {
+                document.getElementById('pin-screen').classList.add('hidden');
+                document.getElementById('main-content').classList.remove('hidden');
+                startTypewriter();
+            } else {
+                if (errorMsg) errorMsg.innerText = "Incorrect PIN! Try again ❤️";
+                if (inputField) inputField.value = "";
+            }
+        }
+
+        document.getElementById('pin-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                checkPin();
+            }
+        });
+
+        function startTypewriter() {
+            let i = 0;
+            const speed = 40;
+            const target = document.getElementById("typewriter-text");
+
+            function type() {
+                if (i < letterMessage.length) {
+                    target.innerHTML += letterMessage.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    document.getElementById("show-flower-btn").style.display = "block";
+                }
+            }
+            type();
+        }
+
+        function scrollToBouquet() {
+            const bouquetSection = document.getElementById('bouquet-section');
+            bouquetSection.classList.remove('hidden');
+            bouquetSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
