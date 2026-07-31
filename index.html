@@ -84,7 +84,7 @@
             margin-top: 8px;
         }
 
-        /* Typewriter Letter */
+        /* Fixed Typewriter Letter Box */
         .letter-card {
             text-align: left;
             background: #fff;
@@ -96,7 +96,8 @@
             font-size: 15px;
             color: #444;
             min-height: 180px;
-            white-space: pre-line;
+            white-space: pre-wrap; /* Preserve spaces and linebreaks */
+            word-break: break-word; /* Prevent text overflow */
         }
 
         /* Interactive Section */
@@ -212,7 +213,7 @@
 
     <script>
         // Set your secret 6-digit PIN here
-        const CORRECT_PIN = "123456"; // 👈 এখানে আপনার ৬ ডিজিটের PIN দিন
+        const CORRECT_PIN = "123456"; // 👈 আপনার পছন্দমতো ৬ ডিজিটের পিন দিয়ে দিন
 
         // Love Letter Message
         const letterMessage = `Hey Beautiful Beva ❤️,
@@ -237,14 +238,14 @@ I created this little space just to bring a smile to your face today, because so
             }
         }
 
-        // 2. Aesthetic Typewriter Effect
+        // 2. Fixed Aesthetic Typewriter Effect
         let typeIndex = 0;
         function startTypewriter() {
             const target = document.getElementById("typewriterText");
             if (typeIndex < letterMessage.length) {
-                target.innerText += letterMessage.charAt(typeIndex);
+                target.textContent += letterMessage.charAt(typeIndex);
                 typeIndex++;
-                setTimeout(startTypewriter, 40); // typing speed
+                setTimeout(startTypewriter, 35); // typing speed
             } else {
                 document.getElementById("heartBtn").classList.remove("hidden");
             }
@@ -257,7 +258,7 @@ I created this little space just to bring a smile to your face today, because so
             drawAnimatedHeartWithBeva();
         }
 
-        // 4. Mathematical Heart Canvas with 'Beva' and Rotating Glow Ring
+        // 4. Mathematical Heart Canvas with 'Beva'
         function drawAnimatedHeartWithBeva() {
             const canvas = document.getElementById("heartCanvas");
             const ctx = canvas.getContext("2d");
@@ -290,7 +291,7 @@ I created this little space just to bring a smile to your face today, because so
                     ctx.textAlign = "center";
                     ctx.fillText("Beva ❤️", 150, 140);
 
-                    // 5-6 Orbiting Rounds Effect
+                    // Orbiting Rounds Effect
                     startOrbitRounds(ctx);
                 }
             }
@@ -307,7 +308,6 @@ I created this little space just to bring a smile to your face today, because so
                     const x = cx + rx * Math.cos(angle);
                     const y = cy + ry * Math.sin(angle);
 
-                    // Draw orbiting spark
                     ctx.beginPath();
                     ctx.arc(x, y, 4, 0, Math.PI * 2);
                     ctx.fillStyle = "#ff4757";
