@@ -25,8 +25,8 @@
 
         .container {
             width: 100%;
-            max-width: 450px;
-            background: rgba(255, 255, 255, 0.92);
+            max-width: 480px;
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 24px;
             padding: 25px 20px;
@@ -84,20 +84,21 @@
             margin-top: 8px;
         }
 
-        /* Fixed Typewriter Letter Box */
+        /* Perfect Letter Card Container */
         .letter-card {
             text-align: left;
             background: #fff;
-            padding: 20px;
+            padding: 22px;
             border-radius: 16px;
             border-left: 5px solid #ff6b81;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            line-height: 1.6;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            line-height: 1.7;
             font-size: 15px;
             color: #444;
-            min-height: 180px;
-            white-space: pre-wrap; /* Preserve spaces and linebreaks */
-            word-break: break-word; /* Prevent text overflow */
+            min-height: 200px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: pre-wrap;
         }
 
         /* Interactive Section */
@@ -215,14 +216,15 @@
         // Set your secret 6-digit PIN here
         const CORRECT_PIN = "123456"; // 👈 আপনার পছন্দমতো ৬ ডিজিটের পিন দিয়ে দিন
 
-        // Love Letter Message
-        const letterMessage = `Hey Beautiful Beva ❤️,
+        // Love Letter Text Array for Perfect Spacing
+        const letterLines = [
+            "Hey Beautiful Beva ❤️,\n\n",
+            "I know it hasn't been very long since we started talking, but I honestly couldn't help myself from falling for you.\n\n",
+            "From the very first conversation, your warmth, kindness, and sweet nature completely stole my heart. There is this pure, comforting vibe about you that makes every moment special. Whenever I talk to you, my day instantly gets a whole lot brighter.\n\n",
+            "I created this little space just to bring a smile to your face today, because someone as sweet and gentle as you deserves all the happiness in the world. ❤️"
+        ];
 
-I know it hasn't been very long since we started talking, but I honestly couldn't help myself from falling for you. 
-
-From the very first conversation, your warmth, kindness, and sweet nature completely stole my heart. There is this pure, comforting vibe about you that makes every moment special. Whenever I talk to you, my day instantly gets a whole lot brighter.
-
-I created this little space just to bring a smile to your face today, because someone as sweet and gentle as you deserves all the happiness in the world. ❤️`;
+        const fullLetterText = letterLines.join("");
 
         // 1. PIN Check
         function checkPin() {
@@ -238,14 +240,14 @@ I created this little space just to bring a smile to your face today, because so
             }
         }
 
-        // 2. Fixed Aesthetic Typewriter Effect
-        let typeIndex = 0;
+        // 2. Fixed Typewriter Effect with Accurate Spaces
+        let charIndex = 0;
         function startTypewriter() {
             const target = document.getElementById("typewriterText");
-            if (typeIndex < letterMessage.length) {
-                target.textContent += letterMessage.charAt(typeIndex);
-                typeIndex++;
-                setTimeout(startTypewriter, 35); // typing speed
+            if (charIndex < fullLetterText.length) {
+                target.textContent += fullLetterText.charAt(charIndex);
+                charIndex++;
+                setTimeout(startTypewriter, 35);
             } else {
                 document.getElementById("heartBtn").classList.remove("hidden");
             }
@@ -258,7 +260,7 @@ I created this little space just to bring a smile to your face today, because so
             drawAnimatedHeartWithBeva();
         }
 
-        // 4. Mathematical Heart Canvas with 'Beva'
+        // 4. Mathematical Heart Canvas
         function drawAnimatedHeartWithBeva() {
             const canvas = document.getElementById("heartCanvas");
             const ctx = canvas.getContext("2d");
@@ -285,13 +287,11 @@ I created this little space just to bring a smile to your face today, because so
                         setTimeout(drawHeartStep, 35);
                     }
                 } else {
-                    // Draw 'Beva' in center
                     ctx.fillStyle = "#ff4757";
                     ctx.font = "bold 26px 'Segoe UI', cursive";
                     ctx.textAlign = "center";
                     ctx.fillText("Beva ❤️", 150, 140);
 
-                    // Orbiting Rounds Effect
                     startOrbitRounds(ctx);
                 }
             }
@@ -332,7 +332,7 @@ I created this little space just to bring a smile to your face today, because so
             document.getElementById("question-section").classList.remove("hidden");
         }
 
-        // 6. Handle 'No' Button Random Positions & Text Swap
+        // 6. Handle 'No' Button Jump
         const noTexts = [
             "Are you sure? 🥺",
             "Think again! 😢",
@@ -347,12 +347,11 @@ I created this little space just to bring a smile to your face today, because so
                 noBtn.innerText = noTexts[noIndex];
                 noIndex++;
 
-                // Jump button to random relative positions
-                const randomX = (Math.random() - 0.5) * 200;
-                const randomY = (Math.random() - 0.5) * 120;
+                const randomX = (Math.random() - 0.5) * 180;
+                const randomY = (Math.random() - 0.5) * 100;
                 noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
             } else {
-                noBtn.style.display = "none"; // Hide button
+                noBtn.style.display = "none";
             }
         }
 
