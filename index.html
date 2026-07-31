@@ -211,8 +211,9 @@
         </div>
     </div>
 
+    <audio id="bg-music" loop src="Prateek Kuhad - Co2 (Official Audio).mp3"></audio>
     <script>
-        const CORRECT_PIN = "126969";
+        const CORRECT_PIN = "200610";
 
         const letterWords = [
             "Hey ", "Beautiful ", "Beva ", "❤️,\n\n",
@@ -226,6 +227,7 @@
             const error = document.getElementById("errorMsg");
 
             if (input === CORRECT_PIN) {
+                document.getElementById('bg-music').play();
                 document.getElementById("pin-section").classList.add("hidden");
                 document.getElementById("letter-section").classList.remove("hidden");
                 startTypewriter();
