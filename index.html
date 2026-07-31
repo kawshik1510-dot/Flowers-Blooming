@@ -19,21 +19,20 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px;
+            padding: 15px;
             overflow-x: hidden;
         }
 
         .container {
             width: 100%;
-            max-width: 480px;
+            max-width: 450px;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 24px;
-            padding: 25px 20px;
+            padding: 20px;
             box-shadow: 0 10px 30px rgba(255, 182, 193, 0.4);
             text-align: center;
             border: 2px solid #ffffff;
-            position: relative;
         }
 
         .hidden {
@@ -61,7 +60,6 @@
             margin-bottom: 12px;
         }
 
-        /* Buttons */
         .btn {
             background: #ff6b81;
             color: white;
@@ -84,24 +82,24 @@
             margin-top: 8px;
         }
 
-        /* Perfect Letter Card Container */
+        /* Fixed Letter Card */
         .letter-card {
             text-align: left;
             background: #fff;
-            padding: 22px;
+            padding: 20px;
             border-radius: 16px;
             border-left: 5px solid #ff6b81;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-            line-height: 1.7;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            line-height: 1.6;
             font-size: 15px;
             color: #444;
-            min-height: 200px;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
+            min-height: 180px;
+            width: 100%;
             white-space: pre-wrap;
+            overflow-wrap: anywhere; /* 👈 এটি লেখা বাইরে যাওয়া ঠেকাবে */
+            word-break: normal;
         }
 
-        /* Interactive Section */
         .interactive-section {
             margin-top: 15px;
             position: relative;
@@ -134,7 +132,6 @@
             z-index: 1;
         }
 
-        /* Images and GIFs */
         .cat-gif {
             width: 180px;
             border-radius: 16px;
@@ -189,7 +186,7 @@
             </div>
         </div>
 
-        <!-- 4. Interactive Question Section (Will you be mine?) -->
+        <!-- 4. Interactive Question Section -->
         <div id="question-section" class="hidden interactive-section">
             <div class="question-title">Will you be mine? 🐾</div>
             <div class="btn-group">
@@ -213,20 +210,11 @@
     </div>
 
     <script>
-        // Set your secret 6-digit PIN here
-        const CORRECT_PIN = "123456"; // 👈 আপনার পছন্দমতো ৬ ডিজিটের পিন দিয়ে দিন
+        const CORRECT_PIN = "123456";
 
-        // Love Letter Text Array for Perfect Spacing
-        const letterLines = [
-            "Hey Beautiful Beva ❤️,\n\n",
-            "I know it hasn't been very long since we started talking, but I honestly couldn't help myself from falling for you.\n\n",
-            "From the very first conversation, your warmth, kindness, and sweet nature completely stole my heart. There is this pure, comforting vibe about you that makes every moment special. Whenever I talk to you, my day instantly gets a whole lot brighter.\n\n",
-            "I created this little space just to bring a smile to your face today, because someone as sweet and gentle as you deserves all the happiness in the world. ❤️"
-        ];
+        // Explicitly spaced letter text
+        const letterText = "Hey Beautiful Beva ❤️ ,\n\nI know it hasn't been very long since we started talking, but I honestly couldn't help myself from falling for you.\n\nFrom the very first conversation, your warmth, kindness, and sweet nature completely stole my heart. There is this pure, comforting vibe about you that makes every moment special.\n\nI created this little space just to bring a smile to your face today, because someone as sweet and gentle as you deserves all the happiness in the world. ❤️";
 
-        const fullLetterText = letterLines.join("");
-
-        // 1. PIN Check
         function checkPin() {
             const input = document.getElementById("pinInput").value;
             const error = document.getElementById("errorMsg");
@@ -240,37 +228,34 @@
             }
         }
 
-        // 2. Fixed Typewriter Effect with Accurate Spaces
-        let charIndex = 0;
+        let i = 0;
         function startTypewriter() {
             const target = document.getElementById("typewriterText");
-            if (charIndex < fullLetterText.length) {
-                target.textContent += fullLetterText.charAt(charIndex);
-                charIndex++;
-                setTimeout(startTypewriter, 35);
+            if (i < letterText.length) {
+                target.textContent += letterText.charAt(i);
+                i++;
+                setTimeout(startTypewriter, 30);
             } else {
                 document.getElementById("heartBtn").classList.remove("hidden");
             }
         }
 
-        // 3. Show Heart Animation
         function showHeartSection() {
             document.getElementById("letter-section").classList.add("hidden");
             document.getElementById("heart-section").classList.remove("hidden");
             drawAnimatedHeartWithBeva();
         }
 
-        // 4. Mathematical Heart Canvas
         function drawAnimatedHeartWithBeva() {
             const canvas = document.getElementById("heartCanvas");
             const ctx = canvas.getContext("2d");
             let scale = 10;
-            let i = 0;
+            let step = 0;
 
             function drawHeartStep() {
                 if (scale <= 15) {
-                    if (i < 120) {
-                        const angle = (i * Math.PI * 2) / 120;
+                    if (step < 120) {
+                        const angle = (step * Math.PI * 2) / 120;
                         const x = 150 + (16 * Math.pow(Math.sin(angle), 3)) * (scale / 1.5);
                         const y = 130 - (13 * Math.cos(angle) - 5 * Math.cos(2 * angle) - 2 * Math.cos(3 * angle) - Math.cos(4 * angle)) * (scale / 1.5);
 
@@ -279,10 +264,10 @@
                         ctx.textAlign = "center";
                         ctx.fillText("I love you", x, y);
 
-                        i++;
+                        step++;
                         setTimeout(drawHeartStep, 10);
                     } else {
-                        i = 0;
+                        step = 0;
                         scale++;
                         setTimeout(drawHeartStep, 35);
                     }
@@ -326,13 +311,11 @@
             animateOrbit();
         }
 
-        // 5. Show Question
         function showQuestionSection() {
             document.getElementById("heart-section").classList.add("hidden");
             document.getElementById("question-section").classList.remove("hidden");
         }
 
-        // 6. Handle 'No' Button Jump
         const noTexts = [
             "Are you sure? 🥺",
             "Think again! 😢",
@@ -355,7 +338,6 @@
             }
         }
 
-        // 7. Handle Yes & Bouquet
         function handleYes() {
             document.getElementById("question-section").classList.add("hidden");
             document.getElementById("happy-cat-section").classList.remove("hidden");
