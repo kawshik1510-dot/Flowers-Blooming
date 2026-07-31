@@ -20,21 +20,22 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px;
+            overflow-x: hidden;
         }
 
         .container {
             width: 100%;
             max-width: 450px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(10px);
             border-radius: 24px;
             padding: 25px 20px;
             box-shadow: 0 10px 30px rgba(255, 182, 193, 0.4);
             text-align: center;
             border: 2px solid #ffffff;
+            position: relative;
         }
 
-        /* Hidden Utility Class */
         .hidden {
             display: none !important;
         }
@@ -58,13 +59,9 @@
             text-align: center;
             outline: none;
             margin-bottom: 12px;
-            transition: 0.3s;
-        }
-        .pin-input:focus {
-            border-color: #ff6b81;
         }
 
-        /* Common Button Style */
+        /* Buttons */
         .btn {
             background: #ff6b81;
             color: white;
@@ -75,20 +72,19 @@
             border-radius: 20px;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(255, 107, 129, 0.3);
-            transition: all 0.2s ease;
+            transition: transform 0.2s, background 0.2s;
         }
         .btn:hover {
-            transform: translateY(-2px);
+            transform: scale(1.05);
             background: #ff4757;
         }
         .error-msg {
             color: #ff4757;
             font-size: 13px;
             margin-top: 8px;
-            font-weight: 500;
         }
 
-        /* Letter Section */
+        /* Typewriter Letter */
         .letter-card {
             text-align: left;
             background: #fff;
@@ -99,18 +95,15 @@
             line-height: 1.6;
             font-size: 15px;
             color: #444;
+            min-height: 180px;
             white-space: pre-line;
-            margin-bottom: 20px;
-        }
-        .btn-center {
-            text-align: center;
-            margin-top: 15px;
         }
 
-        /* Question and Interactive Buttons */
+        /* Interactive Section */
         .interactive-section {
-            margin-top: 25px;
-            animation: fadeIn 0.8s ease-in-out;
+            margin-top: 15px;
+            position: relative;
+            min-height: 320px;
         }
         .question-title {
             color: #ff4757;
@@ -122,53 +115,46 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 15px;
-            min-height: 60px;
-            flex-wrap: wrap;
+            gap: 20px;
+            min-height: 80px;
+            position: relative;
         }
         .btn-yes {
             background: #2ed573;
             box-shadow: 0 4px 15px rgba(46, 213, 115, 0.3);
-            transition: all 0.3s ease;
-        }
-        .btn-yes:hover {
-            background: #26af5f;
+            z-index: 2;
         }
         .btn-no {
             background: #ffa502;
             box-shadow: 0 4px 15px rgba(255, 165, 2, 0.3);
             transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
         }
 
-        /* Bouquet Section */
+        /* Images and GIFs */
+        .cat-gif {
+            width: 180px;
+            border-radius: 16px;
+            margin-bottom: 15px;
+        }
         .flower-img {
             width: 100%;
             max-width: 320px;
             border-radius: 18px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.15);
             margin-bottom: 15px;
-            animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .final-msg {
             color: #ff4757;
             font-size: 20px;
             font-weight: bold;
-            margin-top: 10px;
-            line-height: 1.4;
+            margin-bottom: 15px;
         }
 
         canvas {
             display: block;
             margin: 0 auto;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes popIn {
-            from { transform: scale(0.7); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
         }
     </style>
 </head>
@@ -178,47 +164,57 @@
         <!-- 1. PIN Lock Section -->
         <div id="pin-section" class="pin-box">
             <h2>Enter Secret PIN 🔒</h2>
-            <p>Hint: Enter your secret code</p>
-            <input type="password" id="pinInput" class="pin-input" placeholder="****" maxlength="8">
+            <p>Enter your secret 6-digit PIN</p>
+            <input type="password" id="pinInput" class="pin-input" placeholder="******" maxlength="6">
             <br>
             <button class="btn" onclick="checkPin()">Unlock ❤️</button>
             <div id="errorMsg" class="error-msg"></div>
         </div>
 
-        <!-- 2. Letter Section -->
+        <!-- 2. Animated Love Letter Section -->
         <div id="letter-section" class="hidden">
-            <div id="letterCard" class="letter-card"></div>
-            <div class="btn-center">
-                <button class="btn" onclick="showSurprise()">See Your Surprise ✨</button>
+            <div id="typewriterText" class="letter-card"></div>
+            <div style="text-align: center; margin-top: 15px;">
+                <button id="heartBtn" class="btn hidden" onclick="showHeartSection()">The Heart For You ✨</button>
             </div>
         </div>
 
-        <!-- 3. Heart Animation & Question Section -->
-        <div id="interactive-section" class="interactive-section hidden">
-            <!-- Math Heart Canvas -->
-            <canvas id="heartCanvas" width="300" height="260"></canvas>
-            
-            <div id="question-box">
-                <div class="question-title">Will you be mine? 🐾</div>
-                <div class="btn-group">
-                    <button id="yesBtn" class="btn btn-yes" onclick="showBouquet()">Yes 💕</button>
-                    <button id="noBtn" class="btn btn-no" onclick="handleNoClick()">No</button>
-                </div>
+        <!-- 3. Math Animated Heart with 'Beva' Section -->
+        <div id="heart-section" class="hidden">
+            <canvas id="heartCanvas" width="300" height="280"></canvas>
+            <div style="margin-top: 15px;">
+                <button id="questionBtn" class="btn hidden" onclick="showQuestionSection()">I Have a Question 🐾</button>
             </div>
         </div>
 
-        <!-- 4. Final Bouquet Section -->
+        <!-- 4. Interactive Question Section (Will you be mine?) -->
+        <div id="question-section" class="hidden interactive-section">
+            <div class="question-title">Will you be mine? 🐾</div>
+            <div class="btn-group">
+                <button id="yesBtn" class="btn btn-yes" onclick="handleYes()">Yes 💕</button>
+                <button id="noBtn" class="btn btn-no" onclick="handleNo()">No</button>
+            </div>
+        </div>
+
+        <!-- 5. Happy Cat GIF + Response -->
+        <div id="happy-cat-section" class="hidden">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp1eHNocXZxeTVuNjRkZXFodnRndmtveDZybTZkZXdyNmd0a2k1dyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ND6xkVPaj8tHO/giphy.gif" alt="Happy Cat" class="cat-gif">
+            <div class="final-msg">Yeye I knew it. You are mine now ❤️</div>
+            <button class="btn" onclick="showBouquetSection()">I Have a Bouquet For You 💐</button>
+        </div>
+
+        <!-- 6. Final Bouquet Section -->
         <div id="bouquet-section" class="hidden">
             <img src="photo_6296152822076084849_y.jpg" alt="Pink Roses Bouquet" class="flower-img">
-            <div class="final-msg">Yeyeye I knew it. Now you're mine officially 😭❤️</div>
+            <div class="final-msg">For You, My Beva! 🌹✨</div>
         </div>
     </div>
 
     <script>
-        // Secret PIN (You can change it)
-        const CORRECT_PIN = "200610"; // 👈 আপনার পাসওয়ার্ড দিয়ে চেঞ্জ করতে পারেন
+        // Set your secret 6-digit PIN here
+        const CORRECT_PIN = "123456"; // 👈 এখানে আপনার ৬ ডিজিটের PIN দিন
 
-        // Love Letter Content
+        // Love Letter Message
         const letterMessage = `Hey Beautiful Beva ❤️,
 
 I know it hasn't been very long since we started talking, but I honestly couldn't help myself from falling for you. 
@@ -227,7 +223,7 @@ From the very first conversation, your warmth, kindness, and sweet nature comple
 
 I created this little space just to bring a smile to your face today, because someone as sweet and gentle as you deserves all the happiness in the world. ❤️`;
 
-        // 1. PIN Checking
+        // 1. PIN Check
         function checkPin() {
             const input = document.getElementById("pinInput").value;
             const error = document.getElementById("errorMsg");
@@ -235,21 +231,34 @@ I created this little space just to bring a smile to your face today, because so
             if (input === CORRECT_PIN) {
                 document.getElementById("pin-section").classList.add("hidden");
                 document.getElementById("letter-section").classList.remove("hidden");
-                document.getElementById("letterCard").innerText = letterMessage;
+                startTypewriter();
             } else {
                 error.innerText = "Wrong PIN! Think again my love 💖";
             }
         }
 
-        // 2. Show Surprise (Heart Animation + Question)
-        function showSurprise() {
-            document.getElementById("letter-section").classList.add("hidden");
-            document.getElementById("interactive-section").classList.remove("hidden");
-            startHeartAnimation();
+        // 2. Aesthetic Typewriter Effect
+        let typeIndex = 0;
+        function startTypewriter() {
+            const target = document.getElementById("typewriterText");
+            if (typeIndex < letterMessage.length) {
+                target.innerText += letterMessage.charAt(typeIndex);
+                typeIndex++;
+                setTimeout(startTypewriter, 40); // typing speed
+            } else {
+                document.getElementById("heartBtn").classList.remove("hidden");
+            }
         }
 
-        // 3. Mathematical Animated Heart (I love you canvas)
-        function startHeartAnimation() {
+        // 3. Show Heart Animation
+        function showHeartSection() {
+            document.getElementById("letter-section").classList.add("hidden");
+            document.getElementById("heart-section").classList.remove("hidden");
+            drawAnimatedHeartWithBeva();
+        }
+
+        // 4. Mathematical Heart Canvas with 'Beva' and Rotating Glow Ring
+        function drawAnimatedHeartWithBeva() {
             const canvas = document.getElementById("heartCanvas");
             const ctx = canvas.getContext("2d");
             let scale = 10;
@@ -268,47 +277,93 @@ I created this little space just to bring a smile to your face today, because so
                         ctx.fillText("I love you", x, y);
 
                         i++;
-                        setTimeout(drawHeartStep, 12);
+                        setTimeout(drawHeartStep, 10);
                     } else {
                         i = 0;
                         scale++;
-                        setTimeout(drawHeartStep, 40);
+                        setTimeout(drawHeartStep, 35);
                     }
+                } else {
+                    // Draw 'Beva' in center
+                    ctx.fillStyle = "#ff4757";
+                    ctx.font = "bold 26px 'Segoe UI', cursive";
+                    ctx.textAlign = "center";
+                    ctx.fillText("Beva ❤️", 150, 140);
+
+                    // 5-6 Orbiting Rounds Effect
+                    startOrbitRounds(ctx);
                 }
             }
             drawHeartStep();
         }
 
-        // 4. Handle "No" Button Progression
-        const noStates = [
+        function startOrbitRounds(ctx) {
+            let rounds = 0;
+            let angle = 0;
+
+            function animateOrbit() {
+                if (rounds < 6) {
+                    const cx = 150, cy = 130, rx = 120, ry = 100;
+                    const x = cx + rx * Math.cos(angle);
+                    const y = cy + ry * Math.sin(angle);
+
+                    // Draw orbiting spark
+                    ctx.beginPath();
+                    ctx.arc(x, y, 4, 0, Math.PI * 2);
+                    ctx.fillStyle = "#ff4757";
+                    ctx.fill();
+
+                    angle += 0.15;
+                    if (angle >= Math.PI * 2) {
+                        angle = 0;
+                        rounds++;
+                    }
+                    requestAnimationFrame(animateOrbit);
+                } else {
+                    document.getElementById("questionBtn").classList.remove("hidden");
+                }
+            }
+            animateOrbit();
+        }
+
+        // 5. Show Question
+        function showQuestionSection() {
+            document.getElementById("heart-section").classList.add("hidden");
+            document.getElementById("question-section").classList.remove("hidden");
+        }
+
+        // 6. Handle 'No' Button Random Positions & Text Swap
+        const noTexts = [
             "Are you sure? 🥺",
             "Think again! 😢",
             "Please don't... 💔",
             "Meoww? 🐱"
         ];
         let noIndex = 0;
-        let yesScale = 1;
 
-        function handleNoClick() {
+        function handleNo() {
             const noBtn = document.getElementById("noBtn");
-            const yesBtn = document.getElementById("yesBtn");
-
-            if (noIndex < noStates.length) {
-                noBtn.innerText = noStates[noIndex];
+            if (noIndex < noTexts.length) {
+                noBtn.innerText = noTexts[noIndex];
                 noIndex++;
 
-                // Slightly enlarge YES button every time NO is clicked
-                yesScale += 0.15;
-                yesBtn.style.transform = `scale(${yesScale})`;
+                // Jump button to random relative positions
+                const randomX = (Math.random() - 0.5) * 200;
+                const randomY = (Math.random() - 0.5) * 120;
+                noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
             } else {
-                // Hide NO button after 'Meoww?'
-                noBtn.style.display = "none";
+                noBtn.style.display = "none"; // Hide button
             }
         }
 
-        // 5. Final Step - Show Bouquet
-        function showBouquet() {
-            document.getElementById("interactive-section").classList.add("hidden");
+        // 7. Handle Yes & Bouquet
+        function handleYes() {
+            document.getElementById("question-section").classList.add("hidden");
+            document.getElementById("happy-cat-section").classList.remove("hidden");
+        }
+
+        function showBouquetSection() {
+            document.getElementById("happy-cat-section").classList.add("hidden");
             document.getElementById("bouquet-section").classList.remove("hidden");
         }
     </script>
